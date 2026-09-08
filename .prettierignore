@@ -1,0 +1,14 @@
+node_modules/
+coverage/
+.pnpm-store/
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+
+# Generated Nuxt files and build outputs
+.nuxt/
+.output/
+.data/
+.nitro/
+.cache/
+dist/
