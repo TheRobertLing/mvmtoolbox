@@ -8,6 +8,10 @@ export default defineNuxtConfig({
 
   css: ['~/assets/css/main.css'],
 
+  runtimeConfig: {
+    steamWebApiKey: '',
+  },
+
   routeRules: {
     '/': { prerender: true },
   },
