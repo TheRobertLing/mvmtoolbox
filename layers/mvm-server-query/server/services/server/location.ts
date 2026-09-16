@@ -1,6 +1,6 @@
-import type { ActiveValveMVMServer } from '../../../shared/schema/active-valve-mvm-servers.ts'
+import type { Server } from '../../../shared/schemas/servers.ts'
 
-type ServerLocation = Pick<ActiveValveMVMServer, 'continent' | 'country' | 'city'>
+type ServerLocation = Pick<Server, 'continent' | 'country' | 'city'>
 
 // Steam SDR locations and aliases for app 440.
 const locations: Record<string, ServerLocation> = {

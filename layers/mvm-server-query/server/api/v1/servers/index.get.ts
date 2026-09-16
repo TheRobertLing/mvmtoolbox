@@ -1,17 +1,17 @@
-import type { ActiveValveMVMServerListResponse } from '../../shared/schema/active-valve-mvm-servers.ts'
-import { ValveMVMAdaptor } from '../adaptors/valve-mvm/adaptor.ts'
-import { ValveMVMService } from '../services/valve-mvm/service.ts'
+import type { ServerListResponse } from '../../../../shared/schemas/servers.ts'
+import { SteamAdaptor } from '../../../adaptors/steam/adaptor.ts'
+import { ServerService } from '../../../services/server/service.ts'
 
 export default defineCachedEventHandler(
-  async (event): Promise<ActiveValveMVMServerListResponse> => {
+  async (event): Promise<ServerListResponse> => {
     const { steamWebApiKey } = useRuntimeConfig(event)
     if (!steamWebApiKey) {
       setResponseStatus(event, 500)
       return { status: 'error' }
     }
 
-    const service = ValveMVMService(ValveMVMAdaptor(steamWebApiKey))
-    const result = await service.getActiveValveMVMServers()
+    const service = ServerService(SteamAdaptor(steamWebApiKey))
+    const result = await service.getServers()
     if (result.status === 'error') {
       setResponseStatus(event, 502)
       return result

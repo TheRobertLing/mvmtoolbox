@@ -1,17 +1,17 @@
 import {
-  ActiveValveMVMServerSchema,
-  ActiveValveMVMServerPlayerSchema,
-  type ActiveValveMVMServerListResult,
-  type ActiveValveMVMServerPlayerListResult,
-  type ValveMVMPort,
-} from '../../ports/valve-mvm.ts'
+  ServerSchema,
+  PlayerSchema,
+  type ServerListResult,
+  type PlayerListResult,
+  type ServerPort,
+} from '../../ports/server.ts'
 import { GetServerListResponseSchema, QueryByFakeIPResponseSchema } from './schemas.ts'
 
-export function ValveMVMAdaptor(apiKey: string): ValveMVMPort {
+export function SteamAdaptor(apiKey: string): ServerPort {
   const baseURL = 'https://api.steampowered.com/IGameServersService'
 
   return {
-    getActiveValveMVMServers: async (): Promise<ActiveValveMVMServerListResult> => {
+    getServers: async (): Promise<ServerListResult> => {
       const response = await $fetch<unknown>(`${baseURL}/GetServerList/v1/`, {
         query: {
           filter: String.raw`\appid\440\empty\1\gametype\hidden,mvm,valve`,
@@ -27,7 +27,7 @@ export function ValveMVMAdaptor(apiKey: string): ValveMVMPort {
         return { status: 'error' }
       }
 
-      const servers = ActiveValveMVMServerSchema.array().safeParse(
+      const servers = ServerSchema.array().safeParse(
         data.data.response.servers.map(({ addr, name, map, players }) => {
           const [ip, port] = addr.split(':')
           return {
@@ -46,10 +46,10 @@ export function ValveMVMAdaptor(apiKey: string): ValveMVMPort {
       return { status: 'success', data: servers.data }
     },
 
-    getActiveValveMVMServerPlayers: async (
+    getServerPlayers: async (
       ip: string,
       port: number
-    ): Promise<ActiveValveMVMServerPlayerListResult> => {
+    ): Promise<PlayerListResult> => {
       const fakeIP = ip.split('.').reduce((value, octet) => value * 256 + Number(octet), 0)
 
       const response = await $fetch<unknown>(`${baseURL}/QueryByFakeIP/v1/`, {
@@ -69,7 +69,7 @@ export function ValveMVMAdaptor(apiKey: string): ValveMVMPort {
         return { status: 'error' }
       }
 
-      const players = ActiveValveMVMServerPlayerSchema.array().safeParse(
+      const players = PlayerSchema.array().safeParse(
         (data.data.response.players_data.players ?? []).map((player) => ({
           playerName: player.name,
           killCount: player.score,
