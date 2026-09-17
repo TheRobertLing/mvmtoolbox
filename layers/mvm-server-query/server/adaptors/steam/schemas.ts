@@ -32,7 +32,7 @@ export const QueryByFakeIPResponseSchema = z.object({
             time_played: z.number().nonnegative(),
           })
         )
-        .optional(),
+        .default([]), 
     }),
   }),
 })

@@ -68,7 +68,7 @@ export function SteamAdaptor(apiKey: string): ServerPort {
     }
 
     const players = PlayerSchema.array().safeParse(
-      (data.data.response.players_data.players ?? []).map((player) => ({
+      data.data.response.players_data.players.map((player) => ({
         playerName: player.name,
         killCount: player.score,
         connectionDuration: player.time_played,
