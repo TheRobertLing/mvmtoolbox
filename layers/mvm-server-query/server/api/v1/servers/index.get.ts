@@ -1,5 +1,6 @@
 import type { ServerListResponse } from '../../../../shared/schemas/servers.ts'
 import { SteamAdaptor } from '../../../adaptors/steam/adaptor.ts'
+import { ServerService } from '../../../services/server/service.ts'
 
 export default defineCachedEventHandler(
   async (event): Promise<ServerListResponse> => {
@@ -9,8 +10,8 @@ export default defineCachedEventHandler(
       return { status: 'error' }
     }
 
-    const steam = SteamAdaptor(steamWebApiKey)
-    const result = await steam.getServers()
+    const service = ServerService(SteamAdaptor(steamWebApiKey))
+    const result = await service.getServers()
     if (result.status === 'error') {
       setResponseStatus(event, 502)
       return result

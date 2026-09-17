@@ -1,6 +1,7 @@
 import { z } from 'zod'
 import type { PlayerListResponse } from '../../../../../../shared/schemas/players.ts'
 import { SteamAdaptor } from '../../../../../adaptors/steam/adaptor.ts'
+import { ServerService } from '../../../../../services/server/service.ts'
 
 const paramsSchema = z.object({
   ip: z.ipv4(),
@@ -20,8 +21,8 @@ export default defineEventHandler(async (event): Promise<PlayerListResponse> => 
     return { status: 'error' }
   }
 
-  const steam = SteamAdaptor(steamWebApiKey)
-  const result = await steam.getServerPlayers(params.data.ip, params.data.port)
+  const service = ServerService(SteamAdaptor(steamWebApiKey))
+  const result = await service.getServerPlayers(params.data.ip, params.data.port)
   if (result.status === 'error') {
     setResponseStatus(event, 502)
     return result

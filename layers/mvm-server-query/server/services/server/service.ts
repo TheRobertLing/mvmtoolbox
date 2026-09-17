@@ -1,22 +1,9 @@
 import type { ServerPort } from '../../ports/server.ts'
-import { getServerLocation } from './location.ts'
 
 export function ServerService(serverPort: ServerPort) {
-  const getServers = async () => {
-    const result = await serverPort.getServers()
-    if (result.status === 'error') return result
+  const getServers = () => serverPort.getServers()
 
-    return {
-      ...result,
-      data: result.data.map((server) => ({
-        ...server,
-        ...getServerLocation(server.serverName),
-      })),
-    }
-  }
-
-  const getServerPlayers = (ip: string, port: number) =>
-    serverPort.getServerPlayers(ip, port)
+  const getServerPlayers = (ip: string, port: number) => serverPort.getServerPlayers(ip, port)
 
   return {
     getServers,
