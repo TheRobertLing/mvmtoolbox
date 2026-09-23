@@ -1,22 +1,14 @@
-import type { ServerResponse } from '../../../../shared/api/servers.ts'
-import { SteamServerQuery } from '../../../core/adaptors/steam-server-query.ts'
-import { QueryServers } from '../../../core/application/services/query-servers.ts'
+import type { ServerListResponse } from '#layers/server-query/shared/api/servers.ts'
+import { fetchServerList } from '#layers/server-query/server/steam/servers.ts'
 
 export default defineCachedEventHandler(
-  async (event): Promise<ServerResponse> => {
-    const { steamWebApiKey } = useRuntimeConfig(event)
-    if (!steamWebApiKey) {
-      setResponseStatus(event, 500)
-      return { status: 'error', reason: 'configuration_error' }
-    }
-
-    const service = QueryServers(SteamServerQuery(steamWebApiKey))
-    const result = await service.getServers()
+  async (event): Promise<ServerListResponse> => {
+    const result = await fetchServerList()
     if (result.status === 'error') {
       setResponseStatus(event, result.reason === 'unexpected_error' ? 500 : 502)
       return result
     }
-    return result
+    return { ...result, timestamp: new Date().toISOString() }
   },
   {
     name: 'mvm-server-list',

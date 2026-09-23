@@ -1,29 +1,18 @@
-import { PlayerRequestSchema, type PlayerResponse } from '../../../../../../shared/api/players.ts'
-import { SteamPlayerQuery } from '../../../../../core/adaptors/steam-player-query.ts'
-import { QueryPlayers } from '../../../../../core/application/services/query-players.ts'
-import { IPv4Schema, PortSchema } from '../../../../../core/domain/server.ts'
+import type { PlayerListResponse } from '#layers/server-query/shared/api/players.ts'
+import { ServerAddressSchema } from '#layers/server-query/shared/api/servers.ts'
+import { fetchPlayerList } from '#layers/server-query/server/steam/players.ts'
 
-export default defineEventHandler(async (event): Promise<PlayerResponse> => {
-  const params = await getValidatedRouterParams(event, PlayerRequestSchema.safeParse)
+export default defineEventHandler(async (event): Promise<PlayerListResponse> => {
+  const params = await getValidatedRouterParams(event, ServerAddressSchema.safeParse)
   if (!params.success) {
     setResponseStatus(event, 400)
     return { status: 'error', reason: 'invalid_request' }
   }
 
-  const { steamWebApiKey } = useRuntimeConfig(event)
-  if (!steamWebApiKey) {
-    setResponseStatus(event, 500)
-    return { status: 'error', reason: 'configuration_error' }
-  }
-
-  const service = QueryPlayers(SteamPlayerQuery(steamWebApiKey))
-  const result = await service.getPlayers(
-    IPv4Schema.parse(params.data.ip),
-    PortSchema.parse(params.data.port)
-  )
+  const result = await fetchPlayerList(params.data)
   if (result.status === 'error') {
     setResponseStatus(event, result.reason === 'unexpected_error' ? 500 : 502)
     return result
   }
-  return result
+  return { ...result, timestamp: new Date().toISOString() }
 })

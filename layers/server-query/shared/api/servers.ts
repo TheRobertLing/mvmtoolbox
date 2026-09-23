@@ -1,7 +1,14 @@
 import { z } from 'zod'
 import { ErrorResponseSchema } from './errors.ts'
 
-export const ServerResponseSchema = z.discriminatedUnion('status', [
+export const ServerAddressSchema = z.object({
+  ip: z.ipv4(),
+  port: z.coerce.number().int().min(1).max(65535),
+})
+
+export type ServerAddress = z.infer<typeof ServerAddressSchema>
+
+export const ServerListResponseSchema = z.discriminatedUnion('status', [
   z.object({
     status: z.literal('success'),
     timestamp: z.iso.datetime(),
@@ -19,5 +26,5 @@ export const ServerResponseSchema = z.discriminatedUnion('status', [
   ErrorResponseSchema,
 ])
 
-export type ServerResponse = z.infer<typeof ServerResponseSchema>
-export type Server = Extract<ServerResponse, { status: 'success' }>['data'][number]
+export type ServerListResponse = z.infer<typeof ServerListResponseSchema>
+export type Server = Extract<ServerListResponse, { status: 'success' }>['data'][number]

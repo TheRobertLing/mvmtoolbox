@@ -1,16 +1,12 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  modules: ['@nuxt/eslint', '@nuxt/ui', '@nuxthub/core'],
+  modules: ['@nuxt/eslint', '@nuxt/ui', '@nuxthub/core', '@pinia/nuxt'],
 
   devtools: {
     enabled: true,
   },
 
-  css: ['~/assets/css/main.css'],
-
-  runtimeConfig: {
-    steamWebApiKey: '',
-  },
+  css: ['overlayscrollbars/overlayscrollbars.css', '~/assets/css/main.css'],
 
   routeRules: {
     '/': { prerender: true },
