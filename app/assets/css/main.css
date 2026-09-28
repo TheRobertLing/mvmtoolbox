@@ -8,6 +8,7 @@
 
 :root {
   --ui-radius: 0.125rem;
+  --ui-header-height: 3.5rem;
 }
 
 :root,

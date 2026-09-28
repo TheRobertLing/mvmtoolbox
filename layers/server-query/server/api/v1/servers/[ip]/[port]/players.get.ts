@@ -1,18 +1,27 @@
-import type { PlayerListResponse } from '#layers/server-query/shared/api/players.ts'
-import { ServerAddressSchema } from '#layers/server-query/shared/api/servers.ts'
-import { fetchPlayerList } from '#layers/server-query/server/steam/players.ts'
+import {
+  ListServerPlayersParamsSchema,
+  type ListServerPlayersResponse,
+} from '#layers/server-query/shared/api/players.ts'
+import { fetchServerPlayers } from '#layers/server-query/server/core/players/fetch.ts'
+import { parsePlayerList } from '#layers/server-query/server/core/players/parse.ts'
 
-export default defineEventHandler(async (event): Promise<PlayerListResponse> => {
-  const params = await getValidatedRouterParams(event, ServerAddressSchema.safeParse)
-  if (!params.success) {
-    setResponseStatus(event, 400)
-    return { status: 'error', reason: 'invalid_request' }
-  }
+export default defineCachedEventHandler(
+  async (event): Promise<ListServerPlayersResponse> => {
+    // Parse request
+    const { ip, port } = await getValidatedRouterParams(event, ListServerPlayersParamsSchema.parse)
 
-  const result = await fetchPlayerList(params.data)
-  if (result.status === 'error') {
-    setResponseStatus(event, result.reason === 'unexpected_error' ? 500 : 502)
-    return result
+    // Get API key
+    const { steamWebApiKey } = useRuntimeConfig(event)
+
+    // Fetch data
+    const payload = await fetchServerPlayers(steamWebApiKey, ip, port)
+
+    // Return data
+    return parsePlayerList(payload)
+  },
+  {
+    name: 'players',
+    maxAge: 10,
+    swr: true,
   }
-  return { ...result, timestamp: new Date().toISOString() }
-})
+)

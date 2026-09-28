@@ -1,20 +1,18 @@
 import { z } from 'zod'
-import { ErrorResponseSchema } from './errors.ts'
 
-export const PlayerListResponseSchema = z.discriminatedUnion('status', [
-  z.object({
-    status: z.literal('success'),
-    timestamp: z.iso.datetime(),
-    data: z.array(
-      z.object({
-        playerName: z.string(),
-        score: z.int().nonnegative(),
-        timePlayedSeconds: z.number().nonnegative(),
-      })
-    ),
-  }),
-  ErrorResponseSchema,
-])
+export const PlayerSchema = z.object({
+  playerName: z.string(),
+  score: z.int().nonnegative(),
+  timePlayedSeconds: z.number().nonnegative(),
+})
 
-export type PlayerListResponse = z.infer<typeof PlayerListResponseSchema>
-export type Player = Extract<PlayerListResponse, { status: 'success' }>['data'][number]
+export const ListServerPlayersParamsSchema = z.object({
+  ip: z.ipv4(),
+  port: z.coerce.number<string>().int().min(1).max(65535),
+})
+
+export const ListServerPlayersResponseSchema = z.array(PlayerSchema)
+
+export type Player = z.infer<typeof PlayerSchema>
+export type ListServerPlayersParams = z.infer<typeof ListServerPlayersParamsSchema>
+export type ListServerPlayersResponse = z.infer<typeof ListServerPlayersResponseSchema>
