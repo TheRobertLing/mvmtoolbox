@@ -1,22 +1,72 @@
 export default defineAppConfig({
   ui: {
     colors: {
-      primary: 'teal',
-      neutral: 'neutral',
+      primary: 'tf2blu',
+      secondary: 'tf2orange',
+      success: 'tf2green',
+      warning: 'tf2gold',
+      error: 'tf2red',
+      info: 'tf2info',
+      neutral: 'stone',
     },
-    card: {
+    input: {
       defaultVariants: {
         variant: 'subtle',
+        size: 'sm',
       },
     },
-    alert: {
+    select: {
       defaultVariants: {
         variant: 'subtle',
+        size: 'sm',
       },
     },
-    empty: {
+    textarea: {
       defaultVariants: {
         variant: 'subtle',
+        size: 'sm',
+      },
+    },
+    selectMenu: {
+      defaultVariants: {
+        variant: 'subtle',
+        size: 'sm',
+      },
+    },
+    inputMenu: {
+      defaultVariants: {
+        variant: 'subtle',
+        size: 'sm',
+      },
+    },
+    inputNumber: {
+      defaultVariants: {
+        variant: 'subtle',
+        size: 'sm',
+      },
+    },
+    inputTags: {
+      defaultVariants: {
+        variant: 'subtle',
+        size: 'sm',
+      },
+    },
+    inputDate: {
+      defaultVariants: {
+        variant: 'subtle',
+        size: 'sm',
+      },
+    },
+    inputTime: {
+      defaultVariants: {
+        variant: 'subtle',
+        size: 'sm',
+      },
+    },
+    pinInput: {
+      defaultVariants: {
+        variant: 'subtle',
+        size: 'sm',
       },
     },
     button: {
@@ -25,56 +75,6 @@ export default defineAppConfig({
       },
     },
     badge: {
-      defaultVariants: {
-        size: 'sm',
-      },
-    },
-    input: {
-      defaultVariants: {
-        size: 'sm',
-      },
-    },
-    select: {
-      defaultVariants: {
-        size: 'sm',
-      },
-    },
-    textarea: {
-      defaultVariants: {
-        size: 'sm',
-      },
-    },
-    selectMenu: {
-      defaultVariants: {
-        size: 'sm',
-      },
-    },
-    inputMenu: {
-      defaultVariants: {
-        size: 'sm',
-      },
-    },
-    inputNumber: {
-      defaultVariants: {
-        size: 'sm',
-      },
-    },
-    inputTags: {
-      defaultVariants: {
-        size: 'sm',
-      },
-    },
-    inputDate: {
-      defaultVariants: {
-        size: 'sm',
-      },
-    },
-    inputTime: {
-      defaultVariants: {
-        size: 'sm',
-      },
-    },
-    pinInput: {
       defaultVariants: {
         size: 'sm',
       },
@@ -157,6 +157,12 @@ export default defineAppConfig({
     listbox: {
       defaultVariants: {
         size: 'sm',
+      },
+    },
+    table: {
+      slots: {
+        th: 'px-3 py-2.5',
+        td: 'p-3',
       },
     },
   },

@@ -1,23 +1,150 @@
 @import 'tailwindcss';
 @import '@nuxt/ui';
 
-@theme {
-  --font-sans: 'Geist', sans-serif;
-  --font-mono: 'Geist Mono', monospace;
+@font-face {
+  font-family: 'TF2';
+  src: url('./fonts/TF2.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
 }
 
+@font-face {
+  font-family: 'TF2';
+  src: url('./fonts/TF2Build.ttf') format('truetype');
+  font-weight: 700;
+  font-display: swap;
+}
+
+/* @font-face {
+  font-family: 'TF2 Secondary';
+  src: url('./fonts/TF2secondary.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+} */
+
+@theme {
+  --font-sans: 'Manrope', sans-serif;
+  /* --font-sans: 'TF2 Secondary', sans-serif; */
+  --font-tf2: 'TF2', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+}
+
+@theme static {
+  /* TF2 UI orange (#CF7336) - primary */
+  --color-tf2orange-50: oklch(97% 0.02 45);
+  --color-tf2orange-100: oklch(94% 0.04 45);
+  --color-tf2orange-200: oklch(87% 0.07 45);
+  --color-tf2orange-300: oklch(79% 0.1 45);
+  --color-tf2orange-400: oklch(70% 0.13 45);
+  --color-tf2orange-500: oklch(60% 0.15 45);
+  --color-tf2orange-600: oklch(52% 0.14 45);
+  --color-tf2orange-700: oklch(44% 0.12 45);
+  --color-tf2orange-800: oklch(36% 0.1 45);
+  --color-tf2orange-900: oklch(28% 0.08 45);
+  --color-tf2orange-950: oklch(20% 0.06 45);
+
+  /* BLU team (#5885A2) - secondary */
+  --color-tf2blu-50: oklch(97% 0.01 235);
+  --color-tf2blu-100: oklch(93% 0.02 235);
+  --color-tf2blu-200: oklch(86% 0.04 235);
+  --color-tf2blu-300: oklch(78% 0.05 235);
+  --color-tf2blu-400: oklch(68% 0.07 235);
+  --color-tf2blu-500: oklch(58% 0.08 235);
+  --color-tf2blu-600: oklch(50% 0.07 235);
+  --color-tf2blu-700: oklch(42% 0.06 235);
+  --color-tf2blu-800: oklch(34% 0.05 235);
+  --color-tf2blu-900: oklch(27% 0.04 235);
+  --color-tf2blu-950: oklch(19% 0.03 235);
+
+  /* RED team (#B8383B) - error */
+  --color-tf2red-50: oklch(96% 0.02 25);
+  --color-tf2red-100: oklch(92% 0.04 25);
+  --color-tf2red-200: oklch(85% 0.07 25);
+  --color-tf2red-300: oklch(76% 0.1 25);
+  --color-tf2red-400: oklch(65% 0.14 25);
+  --color-tf2red-500: oklch(54% 0.16 25);
+  --color-tf2red-600: oklch(47% 0.15 25);
+  --color-tf2red-700: oklch(40% 0.13 25);
+  --color-tf2red-800: oklch(33% 0.11 25);
+  --color-tf2red-900: oklch(26% 0.08 25);
+  --color-tf2red-950: oklch(18% 0.06 25);
+
+  /* Genuine quality (#4D7455) - success */
+  --color-tf2green-50: oklch(96% 0.02 145);
+  --color-tf2green-100: oklch(92% 0.03 145);
+  --color-tf2green-200: oklch(85% 0.05 145);
+  --color-tf2green-300: oklch(76% 0.07 145);
+  --color-tf2green-400: oklch(65% 0.09 145);
+  --color-tf2green-500: oklch(54% 0.1 145);
+  --color-tf2green-600: oklch(47% 0.09 145);
+  --color-tf2green-700: oklch(40% 0.08 145);
+  --color-tf2green-800: oklch(33% 0.07 145);
+  --color-tf2green-900: oklch(26% 0.05 145);
+  --color-tf2green-950: oklch(18% 0.04 145);
+
+  /* Unique quality (#FFD700, toned down) - warning */
+  --color-tf2gold-50: oklch(97% 0.03 85);
+  --color-tf2gold-100: oklch(94% 0.05 85);
+  --color-tf2gold-200: oklch(88% 0.08 85);
+  --color-tf2gold-300: oklch(81% 0.11 85);
+  --color-tf2gold-400: oklch(74% 0.13 85);
+  --color-tf2gold-500: oklch(68% 0.14 85);
+  --color-tf2gold-600: oklch(58% 0.12 85);
+  --color-tf2gold-700: oklch(48% 0.1 85);
+  --color-tf2gold-800: oklch(38% 0.08 85);
+  --color-tf2gold-900: oklch(30% 0.06 85);
+  --color-tf2gold-950: oklch(21% 0.04 85);
+
+  /* Vintage quality (#476291) - info */
+  --color-tf2info-50: oklch(96% 0.01 250);
+  --color-tf2info-100: oklch(92% 0.02 250);
+  --color-tf2info-200: oklch(84% 0.03 250);
+  --color-tf2info-300: oklch(75% 0.05 250);
+  --color-tf2info-400: oklch(64% 0.07 250);
+  --color-tf2info-500: oklch(53% 0.08 250);
+  --color-tf2info-600: oklch(45% 0.07 250);
+  --color-tf2info-700: oklch(38% 0.06 250);
+  --color-tf2info-800: oklch(31% 0.05 250);
+  --color-tf2info-900: oklch(24% 0.04 250);
+  --color-tf2info-950: oklch(17% 0.03 250);
+}
+
+/* doesn't apply to flex containers (most of nuxt ui), superseded by the @font-face metric overrides */
+@layer base {
+  *,
+  ::before,
+  ::after {
+    text-box: trim-none cap alphabetic;
+  }
+}
+
+/* @utility text-trim-none {
+  text-box: normal;
+} */
+
 :root {
-  --ui-radius: 0.125rem;
-  --ui-header-height: 3.5rem;
+  --ui-radius: 0rem;
 }
 
 :root,
 .light {
-  --ui-bg-muted: var(--ui-color-neutral-100);
-  --ui-bg-elevated: var(--ui-color-neutral-100);
-  --ui-bg-accented: var(--ui-color-neutral-200);
+  /* tinted bg: surfaces step darker, text shifted darker for contrast */
+  --ui-bg: var(--ui-color-neutral-200);
+  --ui-bg-muted: var(--ui-color-neutral-300);
+  --ui-bg-elevated: var(--ui-color-neutral-300);
+  --ui-bg-accented: var(--ui-color-neutral-400);
+  --ui-bg-inverted: var(--ui-color-neutral-900);
+  --ui-border: var(--ui-color-neutral-300);
+  --ui-border-muted: var(--ui-color-neutral-300);
+  --ui-border-accented: var(--ui-color-neutral-400);
+  --ui-border-inverted: var(--ui-color-neutral-900);
+  --ui-text-dimmed: var(--ui-color-neutral-500);
+  --ui-text-muted: var(--ui-color-neutral-600);
+  --ui-text-toned: var(--ui-color-neutral-700);
   --ui-text: var(--ui-color-neutral-900);
   --ui-text-highlighted: var(--ui-color-neutral-950);
+  --ui-text-inverted: var(--ui-color-neutral-50);
+  --ui-primary: var(--ui-color-primary-700);
 }
 
 .dark {
@@ -25,6 +152,24 @@
   --ui-bg-muted: var(--ui-color-neutral-900);
   --ui-bg-elevated: var(--ui-color-neutral-900);
   --ui-bg-accented: var(--ui-color-neutral-800);
+  --ui-border: var(--ui-color-neutral-800);
+  --ui-border-muted: var(--ui-color-neutral-700);
+  --ui-border-accented: var(--ui-color-neutral-700);
+  --ui-primary: var(--ui-color-primary-400);
+  --ui-text-dimmed: var(--ui-color-neutral-500);
+  --ui-text-muted: var(--ui-color-neutral-400);
+  --ui-text-toned: var(--ui-color-neutral-300);
   --ui-text: var(--ui-color-neutral-100);
   --ui-text-highlighted: var(--ui-color-neutral-50);
+  --ui-bg-inverted: var(--ui-color-neutral-50);
+  --ui-border-inverted: var(--ui-color-neutral-50);
+  --ui-text-inverted: var(--ui-color-neutral-900);
+}
+
+.os-scrollbar {
+  z-index: 2;
+}
+
+* {
+  scrollbar-color: rgb(128 128 128 / 0.5) transparent;
 }
