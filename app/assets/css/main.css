@@ -167,9 +167,15 @@
 }
 
 .os-scrollbar {
-  z-index: 2;
+  z-index: 60; /* above the sticky UHeader (z-50) */
 }
 
 * {
   scrollbar-color: rgb(128 128 128 / 0.5) transparent;
+}
+
+/* content scrolls inside the OverlayScrollbars viewport in the default layout, never the window */
+html,
+body {
+  overflow: hidden;
 }

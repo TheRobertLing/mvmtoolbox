@@ -6,13 +6,13 @@ export default defineNuxtConfig({
     enabled: true,
   },
 
-  css: ['overlayscrollbars/overlayscrollbars.css', '~/assets/css/main.css'],
-
-  routeRules: {
-    '/': { prerender: true },
-    '/server-browser': { prerender: true },
-    '/about': { prerender: true },
+  app: {
+    head: {
+      link: [{ rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }],
+    },
   },
+
+  css: ['overlayscrollbars/overlayscrollbars.css', '~/assets/css/main.css'],
 
   compatibilityDate: '2026-06-30',
 

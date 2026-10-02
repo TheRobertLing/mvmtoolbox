@@ -1,5 +1,7 @@
 export default defineNuxtConfig({
-  runtimeConfig: {
-    steamWebApiKey: '',
+  extends: ['./widgets/server-browser'],
+
+  routeRules: {
+    '/server-browser': { prerender: true },
   },
 })

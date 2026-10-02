@@ -1,4 +1,19 @@
 export default defineAppConfig({
+  navRoutes: [
+    { label: 'Home', to: '/' },
+    {
+      label: 'Tools',
+      children: [
+        {
+          label: 'Server Browser',
+          description: 'Browse all MVM community servers',
+          to: '/server-browser',
+        },
+      ],
+    },
+    { label: 'About', to: '/about' },
+  ],
+
   ui: {
     colors: {
       primary: 'tf2blu',
