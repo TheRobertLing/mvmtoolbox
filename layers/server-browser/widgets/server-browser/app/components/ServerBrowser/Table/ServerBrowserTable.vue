@@ -12,6 +12,11 @@ const columns: TableColumn<Server>[] = [
     header: 'Map',
   },
   {
+    id: 'ip',
+    accessorFn: (server) => `${server.ip}:${server.port}`,
+    header: 'IP',
+  },
+  {
     id: 'players',
     header: 'Players',
     meta: {
