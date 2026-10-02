@@ -9,12 +9,7 @@ const discussionUrl =
 
     <template #body>
       <div class="flex flex-col gap-4">
-        <UAlert
-          title="Official servers unavailable"
-          color="warning"
-          variant="subtle"
-          icon="i-lucide-triangle-alert"
-        >
+        <UAlert title="Official servers unavailable" color="warning" variant="subtle">
           <template #description>
             As of the 22nd of September, displaying official MVM Servers is no longer possible, due
             to changes made to the Steam Web API. Further community discussion can be found

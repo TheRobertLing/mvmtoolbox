@@ -1,31 +1,8 @@
 @import 'tailwindcss';
 @import '@nuxt/ui';
 
-@font-face {
-  font-family: 'TF2';
-  src: url('./fonts/TF2.ttf') format('truetype');
-  font-weight: 400;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'TF2';
-  src: url('./fonts/TF2Build.ttf') format('truetype');
-  font-weight: 700;
-  font-display: swap;
-}
-
-/* @font-face {
-  font-family: 'TF2 Secondary';
-  src: url('./fonts/TF2secondary.ttf') format('truetype');
-  font-weight: 400;
-  font-display: swap;
-} */
-
 @theme {
   --font-sans: 'Manrope', sans-serif;
-  /* --font-sans: 'TF2 Secondary', sans-serif; */
-  --font-tf2: 'TF2', sans-serif;
   --font-mono: 'IBM Plex Mono', monospace;
 }
 

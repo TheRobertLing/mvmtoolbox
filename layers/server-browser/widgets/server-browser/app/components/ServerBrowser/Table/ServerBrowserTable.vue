@@ -71,6 +71,12 @@ useThemedOverlayScrollbars(() => table.value?.$el)
       <ServerBrowserTableError v-if="error" />
       <ServerBrowserTableEmpty v-else />
     </template>
+    <template #server-cell="{ row }">
+      <ServerBrowserTableCensoredText :text="row.original.serverName" />
+    </template>
+    <template #map-cell="{ row }">
+      <ServerBrowserTableCensoredText :text="row.original.mapName" />
+    </template>
     <template #players-cell="{ row }">
       <ServerBrowserTablePlayerCountBadge
         class="w-full justify-center"

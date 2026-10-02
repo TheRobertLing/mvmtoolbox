@@ -18,8 +18,6 @@ const { navRoutes } = useAppConfig()
       <UHeader title="mvmtoolbox.tf" mode="drawer">
         <UNavigationMenu
           :items="navRoutes"
-          variant="link"
-          highlight
           :ui="{
             list: 'flex gap-2',
             linkLeadingIcon: 'size-4',
@@ -48,7 +46,10 @@ const { navRoutes } = useAppConfig()
       <UFooter
         :ui="{
           root: 'border-t border-default',
-          container: 'px-4 sm:px-6 lg:px-8',
+          container: 'px-4 sm:px-6 lg:px-8 py-2! lg:justify-center',
+          left: 'hidden',
+          right: 'hidden',
+          center: 'mt-0',
         }"
       >
         <p class="text-center text-xs text-muted">

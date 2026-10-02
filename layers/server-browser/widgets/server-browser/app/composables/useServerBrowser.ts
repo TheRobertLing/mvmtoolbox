@@ -6,6 +6,7 @@ const [useProvideServerBrowser, useInjectedServerBrowser] = createInjectionState
   const search = useState('server-filters:search', () => '')
   const hideEmpty = useState('server-filters:hide-empty', () => false)
   const hideFull = useState('server-filters:hide-full', () => false)
+  const hideProfanity = useState('server-filters:hide-profanity', () => true)
 
   const servers = computed(() => data.value.servers)
   const fetchedAt = computed(() => data.value.fetchedAt)
@@ -40,6 +41,7 @@ const [useProvideServerBrowser, useInjectedServerBrowser] = createInjectionState
     search,
     hideEmpty,
     hideFull,
+    hideProfanity,
   }
 })
 
