@@ -4,7 +4,7 @@ const { hideEmpty, hideFull, hideProfanity } = useServerBrowser()
 
 <template>
   <UPopover :content="{ align: 'start' }">
-    <UButton icon="i-lucide-list-filter" label="Filters"  variant="subtle" />
+    <UButton icon="i-lucide-list-filter" label="Filters" variant="subtle" />
 
     <template #content>
       <div class="flex flex-col gap-2 p-2.5">

@@ -14,6 +14,10 @@ export default defineAppConfig({
     { label: 'About', to: '/about' },
   ],
 
+  links: {
+    steam: 'https://steamcommunity.com/profiles/76561198409853978/',
+  },
+
   ui: {
     colors: {
       primary: 'tf2blu',

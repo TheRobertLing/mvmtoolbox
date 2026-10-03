@@ -1,10 +1,8 @@
 <script setup lang="ts">
-const props = defineProps<{ text: string }>()
-
-const { hideProfanity } = useServerBrowser()
+const props = defineProps<{ text: string; hideProfanity: boolean }>()
 
 const segments = computed(() =>
-  hideProfanity.value ? censorProfanity(props.text) : [{ text: props.text, censored: false }]
+  props.hideProfanity ? censorProfanity(props.text) : [{ text: props.text, censored: false }]
 )
 </script>
 

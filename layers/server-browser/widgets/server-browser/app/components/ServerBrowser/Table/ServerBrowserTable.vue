@@ -2,7 +2,7 @@
 import type { Server } from '#widgets/server-browser/shared/api/servers'
 import type { TableColumn } from '@nuxt/ui'
 
-const { servers, isVisible, isLoading, error } = useServerBrowser()
+const { servers, isVisible, isLoading, error, hideProfanity } = useServerBrowser()
 
 const columns: TableColumn<Server>[] = [
   { id: 'server', accessorKey: 'serverName', header: 'Server' },
@@ -72,10 +72,16 @@ useThemedOverlayScrollbars(() => table.value?.$el)
       <ServerBrowserTableEmpty v-else />
     </template>
     <template #server-cell="{ row }">
-      <ServerBrowserTableCensoredText :text="row.original.serverName" />
+      <ServerBrowserTableCensoredText
+        :text="row.original.serverName"
+        :hide-profanity="hideProfanity"
+      />
     </template>
     <template #map-cell="{ row }">
-      <ServerBrowserTableCensoredText :text="row.original.mapName" />
+      <ServerBrowserTableCensoredText
+        :text="row.original.mapName"
+        :hide-profanity="hideProfanity"
+      />
     </template>
     <template #players-cell="{ row }">
       <ServerBrowserTablePlayerCountBadge

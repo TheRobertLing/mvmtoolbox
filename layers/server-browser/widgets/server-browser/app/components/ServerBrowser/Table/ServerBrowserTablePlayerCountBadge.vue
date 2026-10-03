@@ -5,7 +5,7 @@ const props = defineProps<{ playerCount: number; maxPlayerCount: number }>()
 </script>
 
 <template>
-  <UBadge :color="isServerFull(props) ? 'error' : 'success'" variant="outline">
+  <UBadge :color="isServerFull(props) ? 'error' : 'success'" variant="subtle">
     {{ playerCount }} / {{ maxPlayerCount }}
   </UBadge>
 </template>
