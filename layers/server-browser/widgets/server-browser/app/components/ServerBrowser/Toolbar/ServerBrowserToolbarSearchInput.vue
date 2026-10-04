@@ -5,7 +5,7 @@ const { search } = useServerBrowser()
 <template>
   <UInput
     v-model="search"
-    icon="i-lucide-search"
+    icon="i-ph-magnifying-glass-light"
     placeholder="Search servers"
     variant="subtle"
     class="w-full max-w-xs"
@@ -16,7 +16,7 @@ const { search } = useServerBrowser()
         color="neutral"
         variant="link"
         size="sm"
-        icon="i-lucide-circle-x"
+        icon="i-ph-x-circle-light"
         aria-label="Clear input"
         :ui="{
           leadingIcon: 'size-3',

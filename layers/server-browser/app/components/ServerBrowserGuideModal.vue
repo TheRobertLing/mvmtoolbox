@@ -5,7 +5,7 @@ const discussionUrl =
 
 <template>
   <UModal title="Guide" :scrollable="false">
-    <UButton label="Guide" color="secondary" variant="outline" />
+    <UButton label="Guide" color="secondary" variant="subtle" />
 
     <template #body>
       <div class="flex flex-col gap-4">

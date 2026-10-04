@@ -4,7 +4,7 @@ const { isLoading, refresh } = useServerBrowser()
 
 <template>
   <UButton
-    icon="i-lucide-refresh-cw"
+    icon="i-ph-arrows-clockwise-light"
     variant="subtle"
     label="Refresh servers"
     :loading="isLoading"

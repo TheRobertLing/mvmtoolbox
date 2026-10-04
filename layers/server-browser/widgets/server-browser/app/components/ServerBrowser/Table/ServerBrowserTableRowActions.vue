@@ -11,7 +11,7 @@ const connectUrl = computed(() => `steam://connect/${props.server.ip}:${props.se
     <UButton
       :to="connectUrl"
       external
-      icon="i-lucide-plug-zap"
+      icon="i-ph-plugs-light"
       :aria-label="`Join ${server.serverName}`"
       variant="ghost"
       color="neutral"
