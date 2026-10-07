@@ -1,64 +1,61 @@
-# Nuxt Starter Template
+# mvmtoolbox.tf
 
-[![Nuxt UI](https://img.shields.io/badge/Made%20with-Nuxt%20UI-00DC82?logo=nuxt&labelColor=020420)](https://ui.nuxt.com)
-
-Use this template to get started with [Nuxt UI](https://ui.nuxt.com) quickly.
-
-- [Live demo](https://starter-template.nuxt.dev/)
-- [Documentation](https://ui.nuxt.com/docs/getting-started/installation/nuxt)
-
-<a href="https://starter-template.nuxt.dev/" target="_blank">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://ui.nuxt.com/assets/templates/nuxt/starter-dark.png">
-    <source media="(prefers-color-scheme: light)" srcset="https://ui.nuxt.com/assets/templates/nuxt/starter-light.png">
-    <img alt="Nuxt Starter Template" src="https://ui.nuxt.com/assets/templates/nuxt/starter-light.png" width="830" height="466">
-  </picture>
-</a>
-
-> The starter template for Vue is on https://github.com/nuxt-ui-templates/starter-vue.
-
-## Quick Start
-
-```bash [Terminal]
-npm create nuxt@latest -- -t ui
-```
-
-## Deploy your own
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-name=starter&repository-url=https%3A%2F%2Fgithub.com%2Fnuxt-ui-templates%2Fstarter&demo-image=https%3A%2F%2Fui.nuxt.com%2Fassets%2Ftemplates%2Fnuxt%2Fstarter-dark.png&demo-url=https%3A%2F%2Fstarter-template.nuxt.dev%2F&demo-title=Nuxt%20Starter%20Template&demo-description=A%20minimal%20template%20to%20get%20started%20with%20Nuxt%20UI.)
+A collection of tools for players of Mann vs. Machine, built with [Nuxt](https://nuxt.com) and [Nuxt UI](https://ui.nuxt.com).
 
 ## Setup
-
-Make sure to install the dependencies:
 
 ```bash
 pnpm install
 ```
 
-## Development Server
-
-Start the development server on `http://localhost:3000`:
+The server browser calls the Steam Web API, so it needs a key in `.env`:
 
 ```bash
-pnpm dev
+NUXT_STEAM_WEB_API_KEY=your-key
 ```
 
-## Production
+## Commands
 
-Build the application for production:
+| Command          | What it does                                    |
+| ---------------- | ----------------------------------------------- |
+| `pnpm dev`       | Start the dev server on `http://localhost:3000` |
+| `pnpm build`     | Build for production                            |
+| `pnpm preview`   | Preview the production build                    |
+| `pnpm lint`      | Run ESLint                                      |
+| `pnpm typecheck` | Run the type checker                            |
+| `pnpm format`    | Format with Prettier                            |
 
-```bash
-pnpm build
+## Structure
+
+```
+app/                          shell: layout, theme, tools list
+layers/
+  home/                       /
+  about/                      /about
+  server-browser/             /server-browser
+    nuxt.config.ts            route rules and runtime config for this route
+    app/
+      pages/                  the route's page
+      components/             page-level components, plus one folder per widget
+      composables/
+      utils/
+    server/
+      api/v1/server-browser/  this layer's API routes
+      steam/                  Steam Web API client
+    shared/api/               request and response schemas, used by app and server
 ```
 
-Locally preview production build:
+### Rules
 
-```bash
-pnpm preview
-```
+1. **`app/` is the shell.** It holds the layout, the theme, the tools list, and anything two or more routes use.
+2. **One layer per route.** `layers/<route>/` holds everything that route needs: its page, components, composables, server API, shared schemas, route rules and runtime config.
+3. **A widget is a folder, not a layer.** It lives at `app/components/<Widget>/` with a root component of the same name. Nuxt merges every layer into one global namespace, so a nested layer adds depth without adding a boundary.
+4. **Narrowest scope.** Code lives in the narrowest place that covers everything using it. Move it up to `app/` when a second route needs it.
+5. **The layer name is the namespace.** API routes go under `/api/v1/<layer>/`. Cache names, `useFetch` keys and `useState` keys are written `<layer>:<name>`.
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+Imports that cross folders use the `#layers/<layer>/` alias; siblings in the same folder use a relative path. Neither includes a file extension.
 
-## Renovate integration
+### Adding a tool
 
-Install [Renovate GitHub app](https://github.com/apps/renovate/installations/select_target) on your repository and you are good to go.
+1. Create `layers/<name>/` with a `nuxt.config.ts` and `app/pages/<name>.vue`. Nuxt registers every folder in `layers/` automatically.
+2. Add its entry to `tools` in `app/app.config.ts`, or remove `disabled` if it is already listed. The nav and the home page both read that list.

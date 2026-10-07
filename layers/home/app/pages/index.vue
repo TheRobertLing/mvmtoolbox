@@ -1,0 +1,34 @@
+<script setup lang="ts">
+const { tools } = useAppConfig()
+</script>
+
+<template>
+  <UContainer class="flex flex-1 flex-col items-center justify-center gap-10 py-12">
+    <div class="flex max-w-xl flex-col items-center gap-3 text-center">
+      <h1 class="text-3xl font-semibold tracking-tight text-highlighted">mvmtoolbox.tf</h1>
+      <p class="text-sm text-balance text-muted">
+        A collection of tools for players of Mann vs. Machine.
+      </p>
+    </div>
+
+    <UPageGrid class="w-full max-w-md gap-4 sm:grid-cols-1 lg:grid-cols-1">
+      <UPageCard
+        v-for="tool in tools"
+        :key="tool.to"
+        :title="tool.title"
+        :to="tool.disabled ? undefined : tool.to"
+        :class="tool.disabled && 'cursor-not-allowed opacity-30'"
+        :aria-disabled="tool.disabled || undefined"
+        :ui="{
+          container: 'p-4!',
+          wrapper: 'items-center justify-center',
+          header: 'absolute top-2 right-2 mb-0',
+          body: 'flex-none',
+          title: 'text-sm text-center',
+        }"
+        variant="subtle"
+      >
+      </UPageCard>
+    </UPageGrid>
+  </UContainer>
+</template>
