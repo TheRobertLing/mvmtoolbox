@@ -1,6 +1,6 @@
 import type { ListServersResponse } from '#layers/server-browser/shared/api/servers'
-import { fetchMVMServers } from '#layers/server-browser/server/core/servers/fetch'
-import { parseServerList } from '#layers/server-browser/server/core/servers/parse'
+import { fetchMVMServers } from '#layers/server-browser/server/steam/servers/fetch'
+import { parseServerList } from '#layers/server-browser/server/steam/servers/parse'
 
 export default defineCachedEventHandler(
   async (event): Promise<ListServersResponse> => {

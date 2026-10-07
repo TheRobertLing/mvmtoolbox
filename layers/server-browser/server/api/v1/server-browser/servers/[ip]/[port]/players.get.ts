@@ -2,8 +2,8 @@ import {
   ListServerPlayersParamsSchema,
   type ListServerPlayersResponse,
 } from '#layers/server-browser/shared/api/players'
-import { fetchServerPlayers } from '#layers/server-browser/server/core/players/fetch'
-import { parsePlayerList } from '#layers/server-browser/server/core/players/parse'
+import { fetchServerPlayers } from '#layers/server-browser/server/steam/players/fetch'
+import { parsePlayerList } from '#layers/server-browser/server/steam/players/parse'
 
 export default defineCachedEventHandler(
   async (event): Promise<ListServerPlayersResponse> => {
