@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import aboutGif from '../assets/dpm7b6lqbizg1.gif'
+import aboutGif from '../assets/spinning-sniper.gif'
 
 const { links } = useAppConfig()
 </script>
