@@ -1,8 +1,4 @@
-import {
-  isServerEmpty,
-  isServerFull,
-  type Server,
-} from '#layers/server-browser/shared/api/servers'
+import { isServerEmpty, isServerFull, type Server } from '#layers/server-browser/shared/api/servers'
 
 const [useProvideServerBrowser, useInjectedServerBrowser] = createInjectionState(() => {
   const { data, status, error, refresh } = useServers()
