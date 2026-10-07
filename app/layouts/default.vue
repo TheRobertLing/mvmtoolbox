@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { NavigationMenuItem } from '@nuxt/ui'
+
 const route = useRoute()
 const scroller = useTemplateRef('scroller')
 const osInstance = useThemedOverlayScrollbars(scroller)
@@ -9,7 +11,17 @@ watch(
   }
 )
 
-const { navRoutes } = useAppConfig()
+const { tools } = useAppConfig()
+const navItems = computed<NavigationMenuItem[]>(() => [
+  { label: 'Home', to: '/' },
+  {
+    label: 'Tools',
+    children: tools
+      .filter((tool) => !tool.disabled)
+      .map((tool) => ({ label: tool.title, to: tool.to })),
+  },
+  { label: 'About', to: '/about' },
+])
 </script>
 
 <template>
@@ -17,7 +29,7 @@ const { navRoutes } = useAppConfig()
     <div class="flex min-h-dvh flex-col">
       <UHeader title="mvmtoolbox.tf" mode="drawer">
         <UNavigationMenu
-          :items="navRoutes"
+          :items="navItems"
           :ui="{
             list: 'flex gap-2',
             linkLeadingIcon: 'size-4',
@@ -34,7 +46,7 @@ const { navRoutes } = useAppConfig()
         </template>
         <template #body>
           <UNavigationMenu
-            :items="navRoutes"
+            :items="navItems"
             orientation="vertical"
             :ui="{ linkLeadingIcon: 'size-4', linkTrailingIcon: 'size-4', childLinkIcon: 'size-4' }"
           />

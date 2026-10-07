@@ -1,17 +1,22 @@
 export default defineAppConfig({
-  navRoutes: [
-    { label: 'Home', to: '/' },
+  tools: [
     {
-      label: 'Tools',
-      children: [
-        {
-          label: 'Server Browser',
-          description: 'Browse all MVM community servers',
-          to: '/server-browser',
-        },
-      ],
+      title: 'Server Browser',
+      description: 'Browse all MVM community servers',
+      to: '/server-browser',
     },
-    { label: 'About', to: '/about' },
+    {
+      title: 'Loadout Randomiser',
+      description: 'Roll a random class and loadout for your next wave',
+      to: '/loadout',
+      disabled: true,
+    },
+    {
+      title: 'Loot Tracker',
+      description: 'Keep track of your Mann Up tour loot',
+      to: '/loot',
+      disabled: true,
+    },
   ],
 
   links: {
