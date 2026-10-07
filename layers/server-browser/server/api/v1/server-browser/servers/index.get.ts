@@ -1,6 +1,6 @@
-import type { ListServersResponse } from '#widgets/server-browser/shared/api/servers.ts'
-import { fetchMVMServers } from '#widgets/server-browser/server/core/servers/fetch.ts'
-import { parseServerList } from '#widgets/server-browser/server/core/servers/parse.ts'
+import type { ListServersResponse } from '#layers/server-browser/shared/api/servers'
+import { fetchMVMServers } from '#layers/server-browser/server/core/servers/fetch'
+import { parseServerList } from '#layers/server-browser/server/core/servers/parse'
 
 export default defineCachedEventHandler(
   async (event): Promise<ListServersResponse> => {

@@ -1,4 +1,4 @@
-import { ListServerPlayersResponseSchema } from '#widgets/server-browser/shared/api/players'
+import { ListServerPlayersResponseSchema } from '#layers/server-browser/shared/api/players'
 
 export function useServerPlayers(ip: MaybeRefOrGetter<string>, port: MaybeRefOrGetter<number>) {
   return useFetch(() => `/api/v1/server-browser/servers/${toValue(ip)}/${toValue(port)}/players`, {

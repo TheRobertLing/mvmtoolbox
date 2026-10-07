@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import type { Player } from '#widgets/server-browser/shared/api/players.ts'
+import type { Player } from '#layers/server-browser/shared/api/players'
 
 const PlayerListEnvelopeSchema = z.object({
   response: z.object({

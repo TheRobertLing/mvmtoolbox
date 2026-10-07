@@ -1,4 +1,4 @@
-import { ListServersResponseSchema, type Server } from '#widgets/server-browser/shared/api/servers'
+import { ListServersResponseSchema, type Server } from '#layers/server-browser/shared/api/servers'
 
 type ServerBrowserData = {
   servers: Server[]

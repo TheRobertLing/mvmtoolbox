@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Server } from '#widgets/server-browser/shared/api/servers'
+import type { Server } from '#layers/server-browser/shared/api/servers'
 import type { TableColumn } from '@nuxt/ui'
 
 const { servers, isVisible, isLoading, error, hideProfanity } = useServerBrowser()

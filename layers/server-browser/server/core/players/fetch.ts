@@ -1,4 +1,4 @@
-import { IPv4ToUINT32 } from './utils.ts'
+import { IPv4ToUINT32 } from './utils'
 
 export async function fetchServerPlayers(
   apiKey: string,

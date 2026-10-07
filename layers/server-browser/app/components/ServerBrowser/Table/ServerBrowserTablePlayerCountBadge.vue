@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { isServerFull } from '#widgets/server-browser/shared/api/servers'
+import { isServerFull } from '#layers/server-browser/shared/api/servers'
 
 const props = defineProps<{ playerCount: number; maxPlayerCount: number }>()
 </script>

@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import type { Server } from '#widgets/server-browser/shared/api/servers.ts'
+import type { Server } from '#layers/server-browser/shared/api/servers'
 
 const ServerListEnvelopeSchema = z.object({
   response: z.object({
