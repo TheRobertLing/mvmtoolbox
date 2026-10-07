@@ -8,7 +8,7 @@ type ServerBrowserData = {
 // Client-only: pages using this are prerendered, so fetching on the server would bake a stale list into the HTML
 export function useServers() {
   return useFetch('/api/v1/server-browser/servers', {
-    key: 'servers',
+    key: 'server-browser:servers',
     server: false,
     lazy: true,
     dedupe: 'defer',

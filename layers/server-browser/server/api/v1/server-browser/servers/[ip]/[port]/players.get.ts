@@ -20,7 +20,7 @@ export default defineCachedEventHandler(
     return parsePlayerList(payload)
   },
   {
-    name: 'players',
+    name: 'server-browser:players',
     maxAge: 10,
     swr: false,
   }

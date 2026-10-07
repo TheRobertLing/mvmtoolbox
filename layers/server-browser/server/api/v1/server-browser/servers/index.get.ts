@@ -14,7 +14,7 @@ export default defineCachedEventHandler(
     return parseServerList(payload)
   },
   {
-    name: 'servers',
+    name: 'server-browser:servers',
     maxAge: 10,
     swr: false,
   }

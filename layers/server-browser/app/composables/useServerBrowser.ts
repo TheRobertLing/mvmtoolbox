@@ -7,10 +7,10 @@ import {
 const [useProvideServerBrowser, useInjectedServerBrowser] = createInjectionState(() => {
   const { data, status, error, refresh } = useServers()
 
-  const search = useState('server-filters:search', () => '')
-  const hideEmpty = useState('server-filters:hide-empty', () => false)
-  const hideFull = useState('server-filters:hide-full', () => false)
-  const hideProfanity = useState('server-filters:hide-profanity', () => true)
+  const search = useState('server-browser:search', () => '')
+  const hideEmpty = useState('server-browser:hide-empty', () => false)
+  const hideFull = useState('server-browser:hide-full', () => false)
+  const hideProfanity = useState('server-browser:hide-profanity', () => true)
 
   const servers = computed(() => data.value.servers)
   const fetchedAt = computed(() => data.value.fetchedAt)
