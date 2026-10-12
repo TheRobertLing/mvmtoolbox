@@ -86,26 +86,12 @@
   --color-tf2info-950: oklch(17% 0.03 250);
 }
 
-/* doesn't apply to flex containers (most of nuxt ui), superseded by the @font-face metric overrides */
-@layer base {
-  *,
-  ::before,
-  ::after {
-    text-box: trim-none cap alphabetic;
-  }
-}
-
-/* @utility text-trim-none {
-  text-box: normal;
-} */
-
 :root {
   --ui-radius: 0rem;
 }
 
 :root,
 .light {
-  /* tinted bg: surfaces step darker, text shifted darker for contrast */
   --ui-bg: var(--ui-color-neutral-200);
   --ui-bg-muted: var(--ui-color-neutral-300);
   --ui-bg-elevated: var(--ui-color-neutral-300);
@@ -144,14 +130,9 @@
 }
 
 .os-scrollbar {
-  z-index: 60; /* above the sticky UHeader (z-50) */
+  z-index: 60;
 }
 
-* {
-  scrollbar-color: rgb(128 128 128 / 0.5) transparent;
-}
-
-/* content scrolls inside the OverlayScrollbars viewport in the default layout, never the window */
 html,
 body {
   overflow: hidden;
