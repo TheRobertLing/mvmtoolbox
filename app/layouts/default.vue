@@ -55,20 +55,6 @@ const navItems = computed<NavigationMenuItem[]>(() => [
       <UMain class="flex min-h-0 flex-1 flex-col">
         <slot />
       </UMain>
-      <UFooter
-        :ui="{
-          root: 'border-t border-default',
-          container: 'px-4 sm:px-6 lg:px-8 py-2! lg:justify-center',
-          left: 'hidden',
-          right: 'hidden',
-          center: 'mt-0',
-        }"
-      >
-        <p class="text-center text-xs text-muted">
-          This site is not affiliated with, endorsed by, or sponsored by Valve Corporation or Steam.
-          All trademarks are property of their respective owners.
-        </p>
-      </UFooter>
     </div>
   </div>
 </template>
