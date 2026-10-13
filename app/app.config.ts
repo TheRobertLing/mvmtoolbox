@@ -25,13 +25,13 @@ export default defineAppConfig({
 
   ui: {
     colors: {
-      primary: 'tf2blu',
-      secondary: 'tf2orange',
-      success: 'tf2green',
-      warning: 'tf2gold',
-      error: 'tf2red',
+      primary: 'tf2primary',
+      secondary: 'tf2secondary',
+      success: 'tf2success',
+      warning: 'tf2warning',
+      error: 'tf2error',
       info: 'tf2info',
-      neutral: 'stone',
+      neutral: 'zinc',
     },
     icons: {
       arrowDown: 'i-ph-arrow-down-light',
