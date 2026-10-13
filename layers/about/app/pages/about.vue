@@ -6,7 +6,7 @@ const { links } = useAppConfig()
 
 <template>
   <UContainer>
-    <AppPageHeader title="About" description="About mvmtoolbox.tf" />
+    <AppPageHeader title="About" />
 
     <UPageBody class="pb-4">
       <div class="flex flex-col lg:flex-row">
