@@ -7,9 +7,9 @@ const { search } = useServerBrowser()
     v-model="search"
     icon="i-ph-magnifying-glass-light"
     placeholder="Search servers"
-    variant="subtle"
+    variant="outline"
     class="w-full max-w-xs"
-    :ui="{ trailing: 'pr-1' }"
+    :ui="{ base: 'ring-default', trailing: 'pr-1' }"
   >
     <template v-if="search.length" #trailing>
       <UButton
@@ -19,7 +19,7 @@ const { search } = useServerBrowser()
         icon="i-ph-x-circle-light"
         aria-label="Clear input"
         :ui="{
-          leadingIcon: 'size-3',
+          leadingIcon: 'size-4',
         }"
         @click="search = ''"
       />

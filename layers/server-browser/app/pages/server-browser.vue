@@ -1,6 +1,6 @@
 <template>
   <UContainer>
-    <AppPageHeader title="Server Browser" description="Browse all MVM community servers">
+    <AppPageHeader title="Server Browser">
       <template #links>
         <ServerBrowserGuideModal />
       </template>
