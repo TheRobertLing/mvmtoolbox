@@ -49,7 +49,7 @@ useThemedOverlayScrollbars(() => table.value?.$el)
     :loading="isLoading"
     sticky
     :ui="{
-      root: 'rounded-md border border-accented size-full',
+      root: 'rounded-md border border-default size-full',
       thead: 'bg-elevated',
       separator: 'bg-border',
       base: 'h-full',
