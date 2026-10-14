@@ -7,7 +7,7 @@ export async function fetchMVMServers(apiKey: string): Promise<unknown> {
         key: apiKey,
       },
       timeout: 3000,
-      retry: 3,
+      retry: 1,
     })
   } catch {
     throw createError({ statusCode: 502, statusMessage: 'Bad Gateway' })
