@@ -1,17 +1,17 @@
 <script setup lang="ts">
-const { search } = useServerBrowser()
+const { filters } = useServerBrowser()
 </script>
 
 <template>
   <UInput
-    v-model="search"
+    v-model="filters.search"
     icon="i-ph-magnifying-glass-light"
     placeholder="Search servers"
     variant="outline"
     class="w-full max-w-xs"
     :ui="{ base: 'ring-default', trailing: 'pr-1' }"
   >
-    <template v-if="search.length" #trailing>
+    <template v-if="filters.search.length" #trailing>
       <UButton
         color="neutral"
         variant="link"
@@ -21,7 +21,7 @@ const { search } = useServerBrowser()
         :ui="{
           leadingIcon: 'size-4',
         }"
-        @click="search = ''"
+        @click="filters.search = ''"
       />
     </template>
   </UInput>

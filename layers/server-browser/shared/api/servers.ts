@@ -13,8 +13,3 @@ export const ListServersResponseSchema = z.array(ServerSchema)
 
 export type Server = z.infer<typeof ServerSchema>
 export type ListServersResponse = z.infer<typeof ListServersResponseSchema>
-
-export const isServerEmpty = (server: Pick<Server, 'playerCount'>) => server.playerCount === 0
-
-export const isServerFull = (server: Pick<Server, 'playerCount' | 'maxPlayerCount'>) =>
-  server.playerCount >= server.maxPlayerCount

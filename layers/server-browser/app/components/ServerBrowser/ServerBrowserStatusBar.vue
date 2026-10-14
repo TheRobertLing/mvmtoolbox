@@ -1,6 +1,10 @@
 <script setup lang="ts">
-const { servers, visibleServers, fetchedAt } = useServerBrowser()
-const elapsed = useElapsedSince(fetchedAt)
+const { servers, filters } = useServerBrowser()
+
+const lastRefreshed = useTimeAgo(() => servers.fetchedAt ?? Date.now(), {
+  showSecond: true,
+  updateInterval: 1000,
+})
 </script>
 
 <template>
@@ -8,13 +12,14 @@ const elapsed = useElapsedSince(fetchedAt)
     class="flex flex-col flex-wrap items-center justify-between gap-2 text-center text-xs text-muted sm:flex-row sm:text-left"
   >
     <span>
-      Showing <span class="tabular-nums">{{ visibleServers.length }}</span> of
-      <span class="tabular-nums">{{ servers.length }}</span> servers
+      Showing <span class="tabular-nums">{{ filters.visibleServers.length }}</span> of
+      <span class="tabular-nums">{{ servers.list.length }}</span> servers
     </span>
 
-    <span v-if="elapsed !== null">
-      Time elapsed since last refresh:
-      <span class="whitespace-nowrap tabular-nums">{{ elapsed }}</span>
-    </span>
+    <ClientOnly>
+      <span v-if="servers.fetchedAt !== null">
+        Last refreshed <span class="whitespace-nowrap tabular-nums">{{ lastRefreshed }}</span>
+      </span>
+    </ClientOnly>
   </div>
 </template>

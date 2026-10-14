@@ -1,0 +1,30 @@
+import type { Server } from '#layers/server-browser/shared/api/servers'
+
+function matchesSearch(serverName: string, mapName: string, query: string) {
+  if (!query) return true
+  return serverName.toLowerCase().includes(query) || mapName.toLowerCase().includes(query)
+}
+
+export function useServerFilters(servers: MaybeRefOrGetter<Server[]>) {
+  const hideEmpty = useState('server-browser:hide-empty', () => false)
+  const hideFull = useState('server-browser:hide-full', () => false)
+  const hideProfanity = useState('server-browser:hide-profanity', () => true)
+
+  const search = useState('server-browser:search', () => '')
+  const debouncedSearch = refDebounced(search, 200)
+
+  const visibleServers = computed(() => {
+    const query = debouncedSearch.value.trim().toLowerCase()
+    return toValue(servers).filter(
+      (server) =>
+        (!hideEmpty.value || !isServerEmpty(server.playerCount)) &&
+        (!hideFull.value || !isServerFull(server.playerCount, server.maxPlayerCount)) &&
+        matchesSearch(server.serverName, server.mapName, query)
+    )
+  })
+
+  const visibleKeys = computed(() => new Set(visibleServers.value.map((server) => serverAddress(server.ip, server.port))))
+  const isVisible = (ip: string, port: number) => visibleKeys.value.has(serverAddress(ip, port))
+
+  return { search, hideEmpty, hideFull, hideProfanity, visibleServers, isVisible }
+}
