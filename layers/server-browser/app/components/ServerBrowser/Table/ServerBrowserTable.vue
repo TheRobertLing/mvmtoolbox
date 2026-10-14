@@ -5,23 +5,43 @@ import type { TableColumn } from '@nuxt/ui'
 const { servers, isVisible, isLoading, error, hideProfanity } = useServerBrowser()
 
 const columns: TableColumn<Server>[] = [
-  { id: 'server', accessorKey: 'serverName', header: 'Server' },
+  {
+    id: 'server',
+    accessorKey: 'serverName',
+    header: 'Server',
+    meta: {
+      class: {
+        td: 'truncate',
+      },
+    },
+  },
   {
     id: 'map',
     accessorKey: 'mapName',
     header: 'Map',
+    meta: {
+      class: {
+        th: 'w-80',
+        td: 'truncate',
+      },
+    },
   },
   {
     id: 'ip',
     accessorFn: (server) => `${server.ip}:${server.port}`,
     header: 'IP',
+    meta: {
+      class: {
+        th: 'w-56',
+      },
+    },
   },
   {
     id: 'players',
     header: 'Players',
     meta: {
       class: {
-        th: 'w-16 text-center',
+        th: 'w-24 text-center',
         td: 'text-center',
       },
     },
@@ -52,7 +72,7 @@ useThemedOverlayScrollbars(() => table.value?.$el)
       root: 'rounded-md border border-default size-full',
       thead: 'bg-elevated',
       separator: 'bg-border',
-      base: 'h-full',
+      base: 'h-full w-full min-w-4xl table-fixed',
       tbody: 'h-full',
       td: 'font-mono',
     }"
