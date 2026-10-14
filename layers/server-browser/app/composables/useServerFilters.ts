@@ -8,7 +8,6 @@ function matchesSearch(server: Server, query: string) {
 }
 
 export function useServerFilters(servers: MaybeRefOrGetter<Server[]>) {
-
   const hideEmpty = useState('server-browser:hide-empty', () => false)
   const hideFull = useState('server-browser:hide-full', () => false)
   const hideProfanity = useState('server-browser:hide-profanity', () => true)
@@ -16,13 +15,12 @@ export function useServerFilters(servers: MaybeRefOrGetter<Server[]>) {
   const search = useState('server-browser:search', () => '')
   const debouncedSearch = refDebounced(search, 200)
 
-
   const visibleServers = computed(() => {
     const query = debouncedSearch.value.trim().toLowerCase()
     return toValue(servers).filter(
       (server) =>
-        (!hideEmpty.value || !isServerEmpty(server)) &&
-        (!hideFull.value || !isServerFull(server)) &&
+        (!hideEmpty.value || !isServerEmpty(server.playerCount)) &&
+        (!hideFull.value || !isServerFull(server.playerCount, server.maxPlayerCount)) &&
         matchesSearch(server, query)
     )
   })
