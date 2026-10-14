@@ -1,6 +1,6 @@
 const [useProvideServerBrowser, useInjectedServerBrowser] = createInjectionState(() => {
-  const servers = useServerList()
-  const filters = useServerFilters(servers.list)
+  const servers = reactive(useServerList())
+  const filters = reactive(useServerFilters(() => servers.list))
 
   return { servers, filters }
 })
