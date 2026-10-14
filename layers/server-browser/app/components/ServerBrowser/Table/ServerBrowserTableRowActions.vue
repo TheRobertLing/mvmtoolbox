@@ -3,7 +3,7 @@ import type { Server } from '#layers/server-browser/shared/api/servers'
 
 const props = defineProps<{ server: Server }>()
 
-const connectUrl = computed(() => `steam://connect/${props.server.ip}:${props.server.port}`)
+const connectUrl = computed(() => `steam://connect/${serverAddress(props.server)}`)
 </script>
 
 <template>

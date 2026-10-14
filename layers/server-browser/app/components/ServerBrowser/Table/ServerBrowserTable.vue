@@ -2,7 +2,10 @@
 import type { Server } from '#layers/server-browser/shared/api/servers'
 import type { TableColumn } from '@nuxt/ui'
 
-const { servers, isVisible, isLoading, error, hideProfanity } = useServerBrowser()
+const { servers, filters } = useServerBrowser()
+
+const table = useTemplateRef('table')
+useThemedOverlayScrollbars(() => table.value?.$el)
 
 const columns: TableColumn<Server>[] = [
   {
@@ -21,18 +24,8 @@ const columns: TableColumn<Server>[] = [
     header: 'Map',
     meta: {
       class: {
-        th: 'w-80',
+        th: 'w-[calc(32ch_+_2rem)]',
         td: 'truncate',
-      },
-    },
-  },
-  {
-    id: 'ip',
-    accessorFn: (server) => `${server.ip}:${server.port}`,
-    header: 'IP',
-    meta: {
-      class: {
-        th: 'w-56',
       },
     },
   },
@@ -41,7 +34,7 @@ const columns: TableColumn<Server>[] = [
     header: 'Players',
     meta: {
       class: {
-        th: 'w-24 text-center',
+        th: 'w-[calc(7ch_+_2rem)] text-center',
         td: 'text-center',
       },
     },
@@ -56,30 +49,27 @@ const columns: TableColumn<Server>[] = [
     },
   },
 ]
-
-const table = useTemplateRef('table')
-useThemedOverlayScrollbars(() => table.value?.$el)
 </script>
 
 <template>
   <UTable
     ref="table"
-    :data="servers"
+    caption="Server Browser"
+    :data="servers.list"
     :columns="columns"
-    :loading="isLoading"
+    :loading="servers.isLoading"
     sticky
     :ui="{
-      root: 'rounded-md border border-default size-full',
+      root: 'rounded-md border border-default size-full font-mono',
       thead: 'bg-elevated',
       separator: 'bg-border',
-      base: 'h-full w-full min-w-4xl table-fixed',
+      base: 'h-full w-full min-w-[calc(103ch_+_10rem)] table-fixed text-sm',
       tbody: 'h-full',
-      td: 'font-mono',
     }"
     :meta="{
       class: {
         // reference: https://github.com/nuxt/ui/issues/3865
-        tr: (row) => (isVisible(row.original) ? '' : 'collapse'),
+        tr: (row) => (filters.isVisible(row.original) ? '' : 'collapse'),
       },
     }"
     data-overlayscrollbars-initialize
@@ -88,19 +78,19 @@ useThemedOverlayScrollbars(() => table.value?.$el)
       <ServerBrowserTableLoading />
     </template>
     <template #empty>
-      <ServerBrowserTableError v-if="error" />
+      <ServerBrowserTableError v-if="servers.error" />
       <ServerBrowserTableEmpty v-else />
     </template>
     <template #server-cell="{ row }">
       <ServerBrowserTableCensoredText
         :text="row.original.serverName"
-        :hide-profanity="hideProfanity"
+        :hide-profanity="filters.hideProfanity"
       />
     </template>
     <template #map-cell="{ row }">
       <ServerBrowserTableCensoredText
         :text="row.original.mapName"
-        :hide-profanity="hideProfanity"
+        :hide-profanity="filters.hideProfanity"
       />
     </template>
     <template #players-cell="{ row }">

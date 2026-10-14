@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { isLoading, refresh } = useServerBrowser()
+const { servers } = useServerBrowser()
 </script>
 
 <template>
@@ -7,7 +7,7 @@ const { isLoading, refresh } = useServerBrowser()
     icon="i-ph-arrow-clockwise"
     variant="subtle"
     label="Refresh servers"
-    :loading="isLoading"
-    @click="refresh()"
+    :loading="servers.isLoading"
+    @click="servers.refresh()"
   />
 </template>
