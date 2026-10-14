@@ -1,10 +1,8 @@
 import type { Server } from '#layers/server-browser/shared/api/servers'
 
-function matchesSearch(server: Server, query: string) {
+function matchesSearch(serverName: string, mapName: string, query: string) {
   if (!query) return true
-  return (
-    server.serverName.toLowerCase().includes(query) || server.mapName.toLowerCase().includes(query)
-  )
+  return serverName.toLowerCase().includes(query) || mapName.toLowerCase().includes(query)
 }
 
 export function useServerFilters(servers: MaybeRefOrGetter<Server[]>) {
@@ -21,12 +19,12 @@ export function useServerFilters(servers: MaybeRefOrGetter<Server[]>) {
       (server) =>
         (!hideEmpty.value || !isServerEmpty(server.playerCount)) &&
         (!hideFull.value || !isServerFull(server.playerCount, server.maxPlayerCount)) &&
-        matchesSearch(server, query)
+        matchesSearch(server.serverName, server.mapName, query)
     )
   })
 
-  const visibleKeys = computed(() => new Set(visibleServers.value.map(serverAddress)))
-  const isVisible = (server: Server) => visibleKeys.value.has(serverAddress(server))
+  const visibleKeys = computed(() => new Set(visibleServers.value.map((server) => serverAddress(server.ip, server.port))))
+  const isVisible = (ip: string, port: number) => visibleKeys.value.has(serverAddress(ip, port))
 
   return { search, hideEmpty, hideFull, hideProfanity, visibleServers, isVisible }
 }

@@ -1,9 +1,7 @@
 <script setup lang="ts">
-import type { Server } from '#layers/server-browser/shared/api/servers'
+const props = defineProps<{ ip: string; port: number; serverName: string }>()
 
-const props = defineProps<{ server: Server }>()
-
-const connectUrl = computed(() => `steam://connect/${serverAddress(props.server)}`)
+const connectUrl = computed(() => `steam://connect/${serverAddress(props.ip, props.port)}`)
 </script>
 
 <template>
@@ -12,7 +10,7 @@ const connectUrl = computed(() => `steam://connect/${serverAddress(props.server)
       :to="connectUrl"
       external
       icon="i-ph-plugs-light"
-      :aria-label="`Join ${server.serverName}`"
+      :aria-label="`Join ${props.serverName}`"
       variant="ghost"
       color="neutral"
     />

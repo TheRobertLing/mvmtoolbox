@@ -69,7 +69,7 @@ const columns: TableColumn<Server>[] = [
     :meta="{
       class: {
         // reference: https://github.com/nuxt/ui/issues/3865
-        tr: (row) => (filters.isVisible(row.original) ? '' : 'collapse'),
+        tr: (row) => (filters.isVisible(row.original.ip, row.original.port) ? '' : 'collapse'),
       },
     }"
     data-overlayscrollbars-initialize
@@ -101,7 +101,11 @@ const columns: TableColumn<Server>[] = [
       />
     </template>
     <template #actions-cell="{ row }">
-      <ServerBrowserTableRowActions :server="row.original" />
+      <ServerBrowserTableRowActions
+        :ip="row.original.ip"
+        :port="row.original.port"
+        :server-name="row.original.serverName"
+      />
     </template>
   </UTable>
 </template>
