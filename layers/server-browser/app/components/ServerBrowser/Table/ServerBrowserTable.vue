@@ -7,6 +7,12 @@ const { servers, filters } = useServerBrowser()
 const table = useTemplateRef('table')
 useThemedOverlayScrollbars(() => table.value?.$el)
 
+const { censor } = createProfanityCensor()
+const isProfanityHidden = () => filters.hideProfanity
+
+// reference: 1rem = 16px
+// All columns are set based generally on the max length of the text that can appear inside
+// plus a rem amount to account for padding
 const columns: TableColumn<Server>[] = [
   {
     id: 'server',
@@ -14,6 +20,7 @@ const columns: TableColumn<Server>[] = [
     header: 'Server',
     meta: {
       class: {
+        th: 'w-[calc(64ch_+_1.5rem)]',
         td: 'truncate',
       },
     },
@@ -24,8 +31,17 @@ const columns: TableColumn<Server>[] = [
     header: 'Map',
     meta: {
       class: {
-        th: 'w-[calc(32ch_+_2rem)]',
+        th: 'w-[calc(32ch_+_1.5rem)]',
         td: 'truncate',
+      },
+    },
+  },
+  {
+    id: 'tags',
+    header: 'Tags',
+    meta: {
+      class: {
+        th: 'w-[calc(32ch_+_1.5rem)]',
       },
     },
   },
@@ -34,7 +50,7 @@ const columns: TableColumn<Server>[] = [
     header: 'Players',
     meta: {
       class: {
-        th: 'w-[calc(7ch_+_2rem)] text-center',
+        th: 'w-[calc(7ch_+_1.5rem)] text-center',
         td: 'text-center',
       },
     },
@@ -43,8 +59,13 @@ const columns: TableColumn<Server>[] = [
     id: 'actions',
     meta: {
       class: {
-        th: 'w-16',
-        td: 'text-center',
+        // 0.75rem = pe-3
+        // 1.5rem = make column width larger
+        // 1.75rem = width of button
+        // ps-0 so that way the right side padding of the player column doesn't make
+        // the connect button look asymmetric
+        th: 'w-[calc(0.75rem_+_1.5rem_+_1.75rem)] ps-0 text-center',
+        td: 'ps-0 text-center',
       },
     },
   },
@@ -60,11 +81,13 @@ const columns: TableColumn<Server>[] = [
     :loading="servers.isLoading"
     sticky
     :ui="{
-      root: 'rounded-md border border-default size-full font-mono',
+      base: `w-full min-w-[calc(135ch_+_10rem)] table-fixed text-sm ${servers.list.length ? '' : 'h-full'}`,
+      root: '@container rounded-md border border-default size-full font-mono',
       thead: 'bg-elevated',
       separator: 'bg-border',
-      base: 'h-full w-full min-w-[calc(103ch_+_10rem)] table-fixed text-sm',
-      tbody: 'h-full',
+      tbody: servers.list.length ? '' : 'h-full',
+      empty: 'p-0',
+      loading: 'p-0',
     }"
     :meta="{
       class: {
@@ -84,14 +107,27 @@ const columns: TableColumn<Server>[] = [
     <template #server-cell="{ row }">
       <ServerBrowserTableCensoredText
         :text="row.original.serverName"
-        :hide-profanity="filters.hideProfanity"
+        :censored="censor(row.original.serverName)"
+        :hide-profanity="isProfanityHidden"
       />
     </template>
     <template #map-cell="{ row }">
       <ServerBrowserTableCensoredText
         :text="row.original.mapName"
-        :hide-profanity="filters.hideProfanity"
+        :censored="censor(row.original.mapName)"
+        :hide-profanity="isProfanityHidden"
       />
+    </template>
+    <template #tags-cell="{ row }">
+      <div class="flex flex-wrap gap-1">
+        <ServerBrowserTableTagBadge
+          v-for="tag in row.original.gameTags"
+          :key="tag"
+          :tag="tag"
+          :censored="censor(tag)"
+          :hide-profanity="isProfanityHidden"
+        />
+      </div>
     </template>
     <template #players-cell="{ row }">
       <ServerBrowserTablePlayerCountBadge
@@ -101,10 +137,12 @@ const columns: TableColumn<Server>[] = [
       />
     </template>
     <template #actions-cell="{ row }">
-      <ServerBrowserTableRowActions
+      <ServerBrowserTableConnectButton
         :ip="row.original.ip"
         :port="row.original.port"
-        :server-name="row.original.serverName"
+        label="Join server"
+        icon="i-ph-plugs-light"
+        :accessible-label="`Join ${row.original.serverName}`"
       />
     </template>
   </UTable>

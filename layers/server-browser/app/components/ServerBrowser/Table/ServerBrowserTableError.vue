@@ -1,9 +1,9 @@
 <template>
   <UEmpty
     variant="naked"
-    class="items-center justify-center"
     size="sm"
-    title="Unable to load servers"
-    description="Something went wrong while fetching the server list."
+    class="sticky left-0 w-[100cqw] h-full"
+    title="Failed to load server data"
+    description="Please try again later."
   />
 </template>

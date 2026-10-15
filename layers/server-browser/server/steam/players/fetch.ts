@@ -18,6 +18,11 @@ export async function fetchServerPlayers(
       retry: 0,
     })
   } catch {
-    throw createError({ statusCode: 502, statusMessage: 'Bad Gateway' })
+    throw createError({
+      statusCode: 502,
+      statusMessage: 'Bad Gateway',
+      message:
+        'The Steam API is down or not responding, so the player list can’t be loaded right now.',
+    })
   }
 }

@@ -23,7 +23,9 @@ export function useServerFilters(servers: MaybeRefOrGetter<Server[]>) {
     )
   })
 
-  const visibleKeys = computed(() => new Set(visibleServers.value.map((server) => serverAddress(server.ip, server.port))))
+  const visibleKeys = computed(
+    () => new Set(visibleServers.value.map((server) => serverAddress(server.ip, server.port)))
+  )
   const isVisible = (ip: string, port: number) => visibleKeys.value.has(serverAddress(ip, port))
 
   return { search, hideEmpty, hideFull, hideProfanity, visibleServers, isVisible }

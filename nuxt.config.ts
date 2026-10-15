@@ -16,6 +16,14 @@ export default defineNuxtConfig({
 
   compatibilityDate: '2026-06-30',
 
+  icon: {
+    clientBundle: {
+      scan: {
+        globInclude: ['**/*.{vue,ts}'],
+      },
+    },
+  },
+
   hub: {
     cache: true,
   },

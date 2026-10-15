@@ -24,7 +24,12 @@ const SteamPlayerSchema = z
 export function parsePlayerList(payload: unknown): Player[] {
   const envelope = PlayerListEnvelopeSchema.safeParse(payload)
   if (!envelope.success) {
-    throw createError({ statusCode: 502, statusMessage: 'Bad Gateway' })
+    throw createError({
+      statusCode: 502,
+      statusMessage: 'Bad Gateway',
+      message:
+        'The Steam API sent back data we couldn’t read, so the player list can’t be loaded right now.',
+    })
   }
 
   return envelope.data.response.players_data.players.flatMap((raw) => {
