@@ -7,6 +7,7 @@ export const ServerSchema = z.object({
   mapName: z.string(),
   playerCount: z.int().nonnegative(),
   maxPlayerCount: z.int().nonnegative(),
+  gameTags: z.array(z.string()),
 })
 
 export const ListServersResponseSchema = z.array(ServerSchema)

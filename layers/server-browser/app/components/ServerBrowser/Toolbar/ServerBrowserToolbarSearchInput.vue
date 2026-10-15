@@ -8,7 +8,7 @@ const { filters } = useServerBrowser()
     icon="i-ph-magnifying-glass-light"
     placeholder="Search servers"
     variant="outline"
-    class="w-full max-w-xs"
+    class="min-w-0 flex-1"
     :ui="{ base: 'ring-default', trailing: 'pr-1' }"
   >
     <template v-if="filters.search.length" #trailing>

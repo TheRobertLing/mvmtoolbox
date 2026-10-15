@@ -10,6 +10,11 @@ export async function fetchMVMServers(apiKey: string): Promise<unknown> {
       retry: 1,
     })
   } catch {
-    throw createError({ statusCode: 502, statusMessage: 'Bad Gateway' })
+    throw createError({
+      statusCode: 502,
+      statusMessage: 'Bad Gateway',
+      message:
+        'The Steam API is down or not responding, so the server list can’t be loaded right now.',
+    })
   }
 }

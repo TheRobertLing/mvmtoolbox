@@ -1,9 +1,16 @@
 <script setup lang="ts">
-const props = defineProps<{ text: string; hideProfanity: boolean }>()
+import type { CensoredSegment } from '#layers/server-browser/app/utils/censor'
 
-const segments = computed(() =>
-  props.hideProfanity ? censorProfanity(props.text) : [{ text: props.text, censored: false }]
-)
+const props = defineProps<{
+  text: string
+  censored: CensoredSegment[] | null
+  hideProfanity: MaybeRefOrGetter<boolean>
+}>()
+
+const segments = computed(() => {
+  if (props.censored && toValue(props.hideProfanity)) return props.censored
+  return [{ text: props.text, censored: false }]
+})
 </script>
 
 <template>
