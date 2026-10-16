@@ -11,6 +11,10 @@ export function useThemedOverlayScrollbars(
     defer: true,
     options: computed(() => ({
       ...options,
+      update: {
+        debounce: { mutation: [100, 300, true], resize: null, event: [33, 99], env: [222, 666, true] },
+        ...options.update,
+      },
       scrollbars: {
         theme: colorMode.value === 'dark' ? 'os-theme-light' : 'os-theme-dark',
         clickScroll: true,

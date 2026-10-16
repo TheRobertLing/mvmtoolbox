@@ -5,7 +5,9 @@ import type { TableColumn } from '@nuxt/ui'
 const { servers, filters } = useServerBrowser()
 
 const table = useTemplateRef('table')
-useThemedOverlayScrollbars(() => table.value?.$el)
+useThemedOverlayScrollbars(() => table.value?.$el, {
+  scrollbars: { autoHide: 'leave', autoHideDelay: 100 },
+})
 
 const { censor } = createProfanityCensor()
 const isProfanityHidden = () => filters.hideProfanity
